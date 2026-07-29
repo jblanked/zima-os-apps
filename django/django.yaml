@@ -1,0 +1,50 @@
+services:
+  zimadjango:
+    image: jblanked/zimahello:latest
+    container_name: zimadjango
+    deploy:
+      resources:
+        limits:
+          memory: 1.00GB
+          cpus: "0.10"
+        reservations:
+          memory: 512MB
+          devices:
+            - capabilities:
+                - gpu
+              device_ids:
+                - "0"
+          cpus: "0.00"
+    restart: unless-stopped
+    ports:
+      - target: 8000
+        published: "8000"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID
+        target: /zimadjango
+    environment:
+      - DJANGO_DEBUG=true
+      - DJANGO_ALLOWED_HOSTS=localhost,0.0.0.0
+    networks:
+      - default
+    privileged: true
+x-casaos:
+  main: zimadjango
+  port_map: "8000"
+  author: jblanked
+  developer: jblanked
+  id: com.jblanked.zimadjango
+  title:
+    en_us: ZimaDjango
+  icon: https://static.djangoproject.com/img/logos/django-logo-negative.png
+  category: Developer
+  tagline:                  
+    en_us: Run a local Django development server.
+  description:                 
+    en_us: This project provides a Docker image for running a local Django development server.
+  tips:
+    before_install:
+      en_us: |
+        Update your `source` to match your external drive. By default it will save in `ZimaOS-HD/AppData/zimadjango`

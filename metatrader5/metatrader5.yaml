@@ -1,0 +1,50 @@
+services:
+  mt5:
+    image: ghcr.io/gmag11/metatrader5-docker:latest
+    container_name: mt5
+    deploy:
+      resources:
+        limits:
+          memory: 2.00GB
+          cpus: "0.50"
+        reservations:
+          memory: 512MB
+          devices:
+            - capabilities:
+                - gpu
+              device_ids:
+                - "0"
+          cpus: "0.00"
+    restart: unless-stopped
+    ports:
+      - target: 3000
+        published: 3000
+        protocol: tcp
+      - target: 8001
+        published: 8001
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /DATA/AppData/mt5/config
+        target: /config
+    environment:
+      - CUSTOM_USER=<pick a username>
+      - PASSWORD=<pick a password>
+x-casaos:
+  main: mt5
+  port_map: "3000"
+  author: jblanked
+  developer: gmag11
+  id: com.jblanked.metatrader5
+  title:
+    en_us: MetaTrader5
+    custom: MetaTrader5
+  category: Finance
+  tagline:                  
+    en_us: Run MetaTrader 5 in your browser!
+  description:               
+    en_us: This project provides a Docker image for running MetaTrader5 with remote access via VNC, based on the KasmVNC project and KasmVNC Base Image from LinuxServer.
+  tips:
+    before_install:
+      en_us: |
+        Update your `source` to match your external drive. By default it will save in `ZimaOS-HD/AppData/mt5`
