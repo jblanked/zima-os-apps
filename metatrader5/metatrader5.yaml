@@ -39,6 +39,7 @@ x-casaos:
   title:
     en_us: MetaTrader5
     custom: MetaTrader5
+  icon: https://upload.wikimedia.org/wikipedia/commons/2/27/MetaTrader_5.png
   category: Finance
   tagline:                  
     en_us: Run MetaTrader 5 in your browser!
