@@ -1,0 +1,42 @@
+services:
+  coolercontrold:
+    command: null
+    container_name: coolercontrold
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities:
+                - gpu
+              device_ids:
+                - "0"
+      placement: {}
+    entrypoint: null
+    image: coolercontrol/coolercontrold
+    networks:
+      - default
+    ports:
+      - mode: ingress
+        target: 11987
+        published: "11987"
+        protocol: tcp
+    privileged: true
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/coolercontrol-config
+        target: /etc/coolercontrol
+x-casaos:
+  main: coolercontrold
+  port_map: "11987"
+  author: jblanked
+  developer: CoolerControl
+  id: com.jblanked.coolercontrol
+  title:
+    custom: Cooler Control
+  icon: https://gitlab.com/coolercontrol/coolercontrol/-/raw/b72d3a62e7f83dcf9d2832f7408a7a84a1bb654a/coolercontrold/cc-image/resources/lcd-shutdown.png?inline=false
+  category: Productivity
+  tagline:                  
+    en_us: Manage your CPU and GPU temperatures and performance.
+  description:                 
+    en_us: This project provides a Docker image for managing your CPU and GPU temperatures and performance. The original project (and this app's image) is from https://docs.coolercontrol.org/installation/docker.html
