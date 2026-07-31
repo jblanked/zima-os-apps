@@ -1,0 +1,59 @@
+services:
+  windows:
+    image: dockurr/windows
+    container_name: windows
+    deploy:
+      resources:
+        limits:
+          memory: 6.00GB
+          cpus: "0.50"
+        reservations:
+          memory: 512MB
+          devices:
+            - capabilities:
+                - gpu
+              device_ids:
+                - "0"
+          cpus: "0.00"
+    environment:
+      VERSION: "11"
+      DISK_SIZE: "64G"
+      RAM_SIZE: "6G"
+      CPU_CORES: "4"
+      REGION: "en-US"
+      KEYBOARD: "en-US"
+      USERNAME: <pick a username>
+      PASSWORD: <pick a password>
+    devices:
+      - /dev/kvm
+      - /dev/net/tun
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 8006:8006
+      - 3389:3389/tcp
+      - 3389:3389/udp
+    restart: unless-stopped
+    volumes:
+      - /DATA/AppData/windows:/storage
+x-casaos:
+  main: windows
+  author: jblanked
+  developer: dockurr
+  id: com.jblanked.windows
+  title:
+    en_us: Windows
+    custom: Windows
+  icon: https://raw.githubusercontent.com/dockur/windows/master/.github/logo.png
+  category: Home
+  tagline:
+    en_us: Run Windows in your browser!
+  description:
+    en_us: This project provides a Docker image for running Windows with remote
+      access via VNC.
+  tips:
+    before_install:
+      en_us: >
+        Update your `source` to match your external drive. By default it will
+        save in `ZimaOS-HD/AppData/windows`
+  port_map: "8006"
