@@ -1,12 +1,8 @@
 {
     "version": 2,
     "store_id": "com.jblanked.zimaos",
-    "name": {
-        "en_US": "JBlanked ZimaOS App Store"
-    },
-    "description": {
-        "en_US": "Apps for ZimaOS by JBlanked."
-    },
+    "name": "JBlanked ZimaOS App Store",
+    "description": "Apps for ZimaOS by JBlanked.",
     "maintainer": "JBlanked",
     "url": "https://github.com/jblanked/zima-os-apps"
 }
